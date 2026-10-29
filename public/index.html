@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 26 - Vote du Pilote du Jour (Driver of the Day)</title>
+  <meta name="description" content="Votez en direct pour le Pilote du Jour officiel sur le jeu F1 26. Choisissez votre pilote favori parmi les 20 monoplaces en piste !">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏎️</text></svg>">
+</head>
+<body>
+
+  <!-- Carbon and speedlines background overlay -->
+  <div class="speedlines-bg"></div>
+
+  <!-- Header -->
+  <header class="f1-header">
+    <div class="container f1-header-inner">
+      <a href="/" class="f1-logo-group">
+        <span class="f1-badge">F1 26</span>
+        <div class="f1-logo-text">
+          <span class="f1-logo-title">Pilote du Jour</span>
+          <span class="f1-logo-subtitle">Driver of the Day</span>
+        </div>
+      </a>
+
+      <div class="f1-header-actions">
+        <!-- Live status pill -->
+        <div id="statusPill" class="live-pill closed">
+          <span class="status-dot"></span>
+          <span id="statusText">Votes Fermés</span>
+        </div>
+
+        <!-- Audio mute toggle -->
+        <button id="audioToggle" class="btn-icon" title="Activer / Désactiver les effets sonores F1" aria-label="Son">
+          <span id="audioIcon">🔊</span>
+        </button>
+
+        <!-- Admin quick link -->
+        <a href="/admin.html" class="btn-admin-link">
+          <span>🔒 Panel Admin</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Hero / Race Banner -->
+  <main class="container">
+    <section class="race-hero">
+      <div class="grand-prix-tag">
+        <span>🏁</span>
+        <span id="raceTitle">Grand Prix F1 26</span>
+      </div>
+      <h1 class="race-main-title">Élection du Pilote du Jour</h1>
+      <p class="race-subtitle">
+        Soutenez votre pilote préféré de la grille F1 26 pour ses dépassements, sa stratégie et sa performance en course !
+      </p>
+    </section>
+
+    <!-- =========================================================================
+         ÉTAT 1 : VOTES FERMÉS
+         Message obligatoire : "Les votes de pilotes du jour ne sont pas encore ouverts"
+         ========================================================================= -->
+    <section id="closedSection" class="closed-state-container">
+      
+      <!-- F1 Start Lights Gantry (Animation interactive) -->
+      <div class="f1-lights-gantry" aria-label="Feux de départ F1">
+        <div class="f1-light-post"><span class="f1-bulb"></span></div>
+        <div class="f1-light-post"><span class="f1-bulb"></span></div>
+        <div class="f1-light-post"><span class="f1-bulb"></span></div>
+        <div class="f1-light-post"><span class="f1-bulb"></span></div>
+        <div class="f1-light-post"><span class="f1-bulb"></span></div>
+      </div>
+
+      <div class="closed-notice-badge">
+        <span>⏱️ Session en attente</span>
+      </div>
+
+      <!-- EXACT MESSAGE DEMANDÉ PAR L'UTILISATEUR -->
+      <h2 class="closed-main-message">
+        Les votes de pilotes du jour <span class="highlight">ne sont pas encore ouverts</span>
+      </h2>
+
+      <p class="closed-description">
+        La direction de course n'a pas encore lancé la session de vote. Les votes pour le Pilote du Jour s'ouvrent généralement durant les derniers tours du Grand Prix ou au signal de l'administrateur.
+      </p>
+
+      <div class="closed-tips-grid">
+        <div class="closed-tip-card">
+          <div class="closed-tip-icon">📡</div>
+          <div class="closed-tip-content">
+            <h4>Synchronisation en direct</h4>
+            <p>Cette page se mettra à jour instantanément dès que l'administrateur ouvrira les votes.</p>
+          </div>
+        </div>
+        <div class="closed-tip-card">
+          <div class="closed-tip-icon">🏎️</div>
+          <div class="closed-tip-content">
+            <h4>Préparez votre choix</h4>
+            <p>Observez les dépassements, les arrêts aux stands et les remontées héroïques en piste !</p>
+          </div>
+        </div>
+        <div class="closed-tip-card">
+          <div class="closed-tip-icon">📱</div>
+          <div class="closed-tip-content">
+            <h4>Vote unique</h4>
+            <p>Chaque spectateur dispose d'un vote pour élire son héros du jour sur F1 26.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         ÉTAT 2 : VOTES OUVERTS
+         Interface de vote complète avec grille des pilotes et résultats
+         ========================================================================= -->
+    <section id="openSection" class="open-voting-section">
+
+      <!-- Confirmation de vote déjà émis par l'utilisateur -->
+      <div id="userVoteBanner" class="user-vote-banner">
+        <div class="user-vote-info">
+          <div class="user-vote-check">✓</div>
+          <div class="user-vote-details">
+            <h4>Vote pris en compte</h4>
+            <p>Vous avez voté pour <span id="votedDriverName" class="voted-driver-name">--</span>.</p>
+          </div>
+        </div>
+        <div>
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-racing);">
+            Merci pour votre participation !
+          </span>
+        </div>
+      </div>
+
+      <!-- Live bar information -->
+      <div class="voting-live-bar">
+        <div class="voting-instruction">
+          <span class="voting-instruction-flag">🟢</span>
+          <div class="voting-instruction-text">
+            <h3>Les votes sont actuellement ouverts !</h3>
+            <p>Cliquez sur "Voter" pour désigner votre Pilote du Jour sur ce Grand Prix F1 26.</p>
+          </div>
+        </div>
+        <div style="font-family: var(--font-racing); font-weight: 800; font-size: 1rem; color: var(--text-muted);">
+          Total des votes : <span id="totalVotesDisplay" style="color: #fff; font-size: 1.4rem; font-style: italic;">0</span>
+        </div>
+      </div>
+
+      <!-- Live Podium (Top 3 en direct si activé) -->
+      <section id="publicResultsSection" class="public-results-section">
+        <div class="section-header">
+          <div class="section-title-group">
+            <h2>🏆 Tendance en Direct - Podium Pilote du Jour</h2>
+            <p>Mise à jour en temps réel des suffrages</p>
+          </div>
+        </div>
+        <div id="podiumContainer" class="podium-container">
+          <!-- Injecté dynamiquement -->
+        </div>
+      </section>
+
+      <!-- Search & Filters -->
+      <div class="filter-bar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="driverSearchInput" placeholder="Rechercher un pilote, numéro ou écurie..." autocomplete="off">
+        </div>
+
+        <div id="teamFilterScroll" class="team-filter-scroll">
+          <!-- Injecté dynamiquement par team -->
+        </div>
+      </div>
+
+      <!-- Grille de sélection des pilotes -->
+      <div id="driversGrid" class="drivers-grid">
+        <!-- Cartes de pilotes injectées par JavaScript -->
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Modal de confirmation de vote -->
+  <div id="confirmVoteModal" class="modal-backdrop">
+    <div class="modal-box">
+      <button id="modalCloseBtn" class="modal-close-btn" aria-label="Fermer">&times;</button>
+      <h3 class="modal-title">Confirmer votre vote</h3>
+      <p class="modal-text">
+        Êtes-vous sûr de vouloir élire ce pilote comme Pilote du Jour pour ce Grand Prix F1 26 ?
+      </p>
+
+      <div id="modalDriverPreview" class="modal-driver-preview">
+        <!-- Détails du pilote sélectionné -->
+      </div>
+
+      <div class="modal-actions">
+        <button id="btnCancelVote" class="btn-secondary">Annuler</button>
+        <button id="btnConfirmVote" class="btn-primary">Confirmer mon vote 🏁</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="f1-footer">
+    <div class="container footer-content">
+      <div class="footer-disclaimer">
+        <strong>F1 26 Driver of the Day Fan Voting System</strong><br>
+        Application interactive pour ligues et compétitions en ligne F1 26.
+      </div>
+      <div>
+        <a href="/admin.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">
+          Accès au Panel Administrateur &rarr;
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/audio.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

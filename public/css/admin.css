@@ -1,0 +1,723 @@
+/* ==========================================================================
+   F1 26 - ADMIN PANEL STYLESHEET
+   Cockpit Dashboard & Management System
+   ========================================================================== */
+
+/* Admin Layout */
+.admin-shell {
+  padding-bottom: 5rem;
+}
+
+/* Auth / Login Overlay */
+.auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 12, 16, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.auth-overlay.hidden {
+  display: none;
+}
+
+.auth-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  max-width: 440px;
+  width: 100%;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(225, 6, 0, 0.1);
+  position: relative;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--f1-red);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.auth-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(225, 6, 0, 0.15);
+  border: 1px solid rgba(225, 6, 0, 0.3);
+  color: var(--f1-red);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.auth-card h2 {
+  font-family: var(--font-racing);
+  font-size: 1.6rem;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.auth-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-align: left;
+}
+
+.form-label {
+  font-family: var(--font-racing);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.form-input, .form-select {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+}
+
+.form-input:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--f1-red);
+  box-shadow: 0 0 15px var(--f1-red-glow);
+}
+
+/* ==========================================================================
+   MASTER COCKPIT CONTROLS
+   ========================================================================== */
+
+.admin-cockpit {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  background: rgba(18, 22, 31, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin: 2rem 0;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  align-items: center;
+}
+
+.cockpit-info h1 {
+  font-family: var(--font-racing);
+  font-size: 2rem;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+
+.cockpit-race-name-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.cockpit-race-input {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: #fff;
+  font-family: var(--font-racing);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-sm);
+  width: 320px;
+  max-width: 100%;
+}
+
+.cockpit-race-input:focus {
+  outline: none;
+  border-color: var(--f1-red);
+}
+
+/* GIANT LAUNCH / STOP VOTING BUTTON */
+.btn-toggle-voting {
+  padding: 1.25rem 2.25rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-racing);
+  font-size: 1.25rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: skewX(-8deg);
+  border: 2px solid transparent;
+  min-width: 260px;
+}
+
+.btn-toggle-voting.launch {
+  background: linear-gradient(135deg, #00C853, #00E676);
+  color: #000;
+  box-shadow: 0 0 30px rgba(0, 230, 118, 0.45);
+}
+
+.btn-toggle-voting.launch:hover {
+  transform: skewX(-8deg) scale(1.03);
+  box-shadow: 0 0 45px rgba(0, 230, 118, 0.7);
+}
+
+.btn-toggle-voting.stop {
+  background: linear-gradient(135deg, #D50000, #FF1744);
+  color: #fff;
+  box-shadow: 0 0 30px rgba(255, 23, 68, 0.45);
+}
+
+.btn-toggle-voting.stop:hover {
+  transform: skewX(-8deg) scale(1.03);
+  box-shadow: 0 0 45px rgba(255, 23, 68, 0.7);
+}
+
+/* ==========================================================================
+   METRICS ROW
+   ========================================================================== */
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card-label {
+  font-family: var(--font-racing);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.metric-card-value {
+  font-family: var(--font-racing);
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.metric-card-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 0.4rem;
+}
+
+/* ==========================================================================
+   QUICK ACTION TOOLBAR
+   ========================================================================== */
+
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(18, 22, 31, 0.6);
+  border: 1px solid var(--border-subtle);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 2rem;
+}
+
+.toolbar-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-admin-action {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-racing);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition-fast);
+}
+
+.btn-admin-action:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-admin-action.danger:hover {
+  background: rgba(225, 6, 0, 0.2);
+  border-color: var(--f1-red);
+  color: #FF5252;
+}
+
+.btn-admin-action.success:hover {
+  background: rgba(0, 230, 118, 0.2);
+  border-color: var(--green-live);
+  color: var(--green-live);
+}
+
+/* Toggle Switch */
+.switch-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-family: var(--font-racing);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.switch-checkbox {
+  appearance: none;
+  width: 42px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-pill);
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.switch-checkbox::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: var(--transition-fast);
+}
+
+.switch-checkbox:checked {
+  background: var(--green-live);
+}
+
+.switch-checkbox:checked::before {
+  transform: translateX(20px);
+  background: #000;
+}
+
+/* ==========================================================================
+   LIVE REAL-TIME RESULTS & LEADERBOARD
+   ========================================================================== */
+
+.admin-leaderboard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.leaderboard-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-racing);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.leaderboard-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: middle;
+}
+
+.leaderboard-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.rank-col {
+  font-family: var(--font-racing);
+  font-weight: 900;
+  font-size: 1.1rem;
+  width: 50px;
+}
+
+.rank-col.gold { color: var(--gold); }
+.rank-col.silver { color: var(--silver); }
+.rank-col.bronze { color: var(--bronze); }
+
+.driver-col-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.driver-col-color {
+  width: 4px;
+  height: 24px;
+  border-radius: 2px;
+  background-color: var(--team-color, var(--f1-red));
+}
+
+.driver-col-num {
+  font-family: var(--font-racing);
+  font-size: 1.2rem;
+  font-weight: 900;
+  font-style: italic;
+  min-width: 32px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.driver-col-name {
+  font-family: var(--font-racing);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.driver-col-team {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.bar-col {
+  width: 35%;
+}
+
+.votes-col {
+  text-align: right;
+  font-family: var(--font-racing);
+  font-size: 1.1rem;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.percentage-col {
+  text-align: right;
+  font-family: var(--font-racing);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  width: 70px;
+}
+
+/* ==========================================================================
+   DRIVER MANAGEMENT (FORM & GRID)
+   ========================================================================== */
+
+.driver-management-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.driver-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.color-presets-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.color-swatch-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.color-swatch-btn:hover {
+  transform: scale(1.2);
+}
+
+.color-swatch-btn.active {
+  border-color: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.admin-driver-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0 1rem;
+}
+
+.admin-driver-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.admin-driver-item {
+  background: rgba(18, 22, 31, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-driver-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--team-color, var(--f1-red));
+}
+
+.admin-item-info {
+  margin-left: 0.5rem;
+}
+
+.admin-item-num {
+  font-family: var(--font-racing);
+  font-weight: 900;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1;
+}
+
+.admin-item-name {
+  font-family: var(--font-racing);
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.admin-item-team {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.admin-item-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.btn-item-action {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-item-action:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.btn-item-action.delete:hover {
+  background: var(--f1-red);
+  border-color: var(--f1-red);
+  color: #fff;
+}
+
+/* ==========================================================================
+   WINNER CELEBRATION MODAL (PODIUM GRAPHIC)
+   ========================================================================== */
+
+.winner-graphic {
+  background: linear-gradient(135deg, #1c1505 0%, #0d0f14 100%);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(255, 215, 0, 0.25);
+  margin-bottom: 1.5rem;
+}
+
+.winner-badge {
+  background: var(--gold);
+  color: #000;
+  font-family: var(--font-racing);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0.35rem 1.25rem;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.winner-number {
+  font-family: var(--font-racing);
+  font-size: 4.5rem;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 0.9;
+  color: rgba(255, 215, 0, 0.9);
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  margin-bottom: 0.5rem;
+}
+
+.winner-name {
+  font-family: var(--font-racing);
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.winner-team {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.winner-stat-pill {
+  display: inline-flex;
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-racing);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+/* QR Code Container in Modal */
+.qr-modal-body {
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.qr-code-canvas-container {
+  display: inline-block;
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.qr-url-text {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #64C4FF;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  word-break: break-all;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+/* Responsive Admin */
+@media (max-width: 900px) {
+  .admin-cockpit {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .cockpit-race-name-group {
+    justify-content: center;
+  }
+  .cockpit-race-input {
+    width: 100%;
+  }
+  .btn-toggle-voting {
+    width: 100%;
+  }
+}
